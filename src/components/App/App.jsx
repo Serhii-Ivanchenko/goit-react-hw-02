@@ -1,19 +1,11 @@
 import Description from '../Description/Description';
+import Feedback from '../Feedback/Feedback';
+import Notification from '../Notification/Notification';
+import Options from '../Options/Options';
+
 import './App.css';
 
 import { useState } from 'react';
-
-function Options({ onBtnClick, children }) {
-  return <button onClick={onBtnClick}>{children}</button>;
-}
-
-function Feedback({ children }) {
-  return <p>{children}</p>;
-}
-
-function Notification() {
-  return <p>No feedback yet</p>;
-}
 
 function App() {
   const [feedback, setFeedback] = useState({
@@ -29,7 +21,7 @@ function App() {
     });
   };
 
-  const resetFeedback = feedbackType => {
+  const resetFeedback = () => {
     setFeedback({
       good: 0,
       neutral: 0,
