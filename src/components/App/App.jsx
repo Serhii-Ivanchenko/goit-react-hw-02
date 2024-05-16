@@ -30,7 +30,11 @@ function App() {
   };
 
   const resetFeedback = feedbackType => {
-    // Тут використовуй сеттер, щоб оновити стан
+    setFeedback({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
   };
 
   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
@@ -41,7 +45,14 @@ function App() {
       <Options onBtnClick={() => updateFeedback('good')}>Good</Options>
       <Options onBtnClick={() => updateFeedback('neutral')}>Neutral</Options>
       <Options onBtnClick={() => updateFeedback('bad')}>Bad</Options>
-      <Options onBtnClick={resetFeedback}>Reset</Options>
+
+      <>
+        {totalFeedback === 0 ? (
+          <></>
+        ) : (
+          <Options onBtnClick={resetFeedback}>Reset</Options>
+        )}
+      </>
 
       <div>
         {totalFeedback === 0 ? (
