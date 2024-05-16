@@ -3,6 +3,18 @@ import './App.css';
 
 import { useState } from 'react';
 
+function Options({ onBtnClick, children }) {
+  return <button onClick={onBtnClick}>{children}</button>;
+}
+
+function Feedback({ children }) {
+  return <p>{children}</p>;
+}
+
+function Notification() {
+  return <p>No feedback yet</p>;
+}
+
 function App() {
   const [feedback, setFeedback] = useState({
     good: 0,
@@ -11,44 +23,39 @@ function App() {
   });
 
   const updateFeedback = feedbackType => {
-    setFeedback(feedback.feedbackType + 1);
+    setFeedback({
+      ...feedback,
+      [feedbackType]: feedback[feedbackType] + 1,
+    });
   };
 
   const resetFeedback = feedbackType => {
     // Тут використовуй сеттер, щоб оновити стан
   };
 
+  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+
   return (
     <>
       <Description />
-      <button
-        onClick={updateFeedback(() => {
-          good;
-        })}
-      >
-        Good
-      </button>
-      <button
-        onClick={updateFeedback(() => {
-          neutral;
-        })}
-      >
-        Neutral
-      </button>
-      <button
-        onClick={updateFeedback(() => {
-          bad;
-        })}
-      >
-        Bad
-      </button>
-      <button onClick={resetFeedback}>Reset</button>
+      <Options onBtnClick={() => updateFeedback('good')}>Good</Options>
+      <Options onBtnClick={() => updateFeedback('neutral')}>Neutral</Options>
+      <Options onBtnClick={() => updateFeedback('bad')}>Bad</Options>
+      <Options onBtnClick={resetFeedback}>Reset</Options>
 
-      <p>Good: {feedback.good}</p>
-      <p>Neutral: {feedback.neutral}</p>
-      <p>Bad: {feedback.bad}</p>
-      <p>Total:</p>
-      <p>Positive:</p>
+      <div>
+        {totalFeedback === 0 ? (
+          <Notification />
+        ) : (
+          <div>
+            <Feedback>Good: {feedback.good}</Feedback>
+            <Feedback>Neutral: {feedback.neutral}</Feedback>
+            <Feedback>Bad: {feedback.bad}</Feedback>
+            <Feedback>Total: {totalFeedback}</Feedback>
+            <Feedback>Positive: </Feedback>
+          </div>
+        )}
+      </div>
     </>
   );
 }
