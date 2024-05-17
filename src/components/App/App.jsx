@@ -34,6 +34,8 @@ function App() {
     ((feedback.good + feedback.neutral) / totalFeedback) * 100
   );
 
+  const isNoFeedback = totalFeedback === 0;
+  
   return (
     <>
       <Description />
@@ -42,7 +44,7 @@ function App() {
       <Options onBtnClick={() => updateFeedback('bad')}>Bad</Options>
 
       <>
-        {totalFeedback === 0 ? (
+        {isNoFeedback ? (
           <></>
         ) : (
           <Options onBtnClick={resetFeedback}>Reset</Options>
@@ -50,7 +52,7 @@ function App() {
       </>
 
       <div>
-        {totalFeedback === 0 ? (
+        {isNoFeedback ? (
           <Notification />
         ) : (
           <div>
