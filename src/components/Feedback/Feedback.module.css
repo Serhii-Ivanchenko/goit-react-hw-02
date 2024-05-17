@@ -9,8 +9,10 @@
 
 .isPositive {
     color: green;
+    font-weight: 600;
 }
 
 .isNotPositive {
-    color: red
+    color: red;
+    font-weight: 600;
 }

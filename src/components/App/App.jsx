@@ -18,7 +18,6 @@ const initialFeedbackDisplay = () => {
       };
 };
 
-
 function App() {
   const [feedback, setFeedback] = useState(initialFeedbackDisplay);
 
@@ -54,7 +53,7 @@ function App() {
   return (
     <>
       <Description />
-      
+
       <Options onBtnClick={() => updateFeedback('good')}>Good</Options>
       <Options onBtnClick={() => updateFeedback('neutral')}>Neutral</Options>
       <Options onBtnClick={() => updateFeedback('bad')}>Bad</Options>
