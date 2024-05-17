@@ -1,0 +1,16 @@
+.feedbackList {
+    color: black;
+}
+
+.feedbackItem {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.isPositive {
+    color: green;
+}
+
+.isNotPositive {
+    color: red
+}

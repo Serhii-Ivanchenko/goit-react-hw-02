@@ -1,0 +1,23 @@
+.btn {
+    margin-right: 10px;
+    width: 100px;
+    border-radius: 8px;
+    border: 1px solid #3a3a3a;
+    color: black;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #e8e8e8;
+    cursor: pointer;
+    transition: box-shadow 0.25s ease-in-out;
+}
+
+button:hover {
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+button:focus,
+button:focus-visible {
+    outline: 2px solid black;
+}

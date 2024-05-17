@@ -1,18 +1,30 @@
 import Description from '../Description/Description';
 import Feedback from '../Feedback/Feedback';
-import Notification from '../Notification/Notification';
 import Options from '../Options/Options';
 
 import './App.css';
 
 import { useState } from 'react';
+import { useEffect } from 'react';
+
+const initialFeedbackDisplay = () => {
+  const savedFeedback = localStorage.getItem('current-feedback');
+  return savedFeedback !== null
+    ? JSON.parse(savedFeedback)
+    : {
+        good: 0,
+        neutral: 0,
+        bad: 0,
+      };
+};
+
 
 function App() {
-  const [feedback, setFeedback] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  });
+  const [feedback, setFeedback] = useState(initialFeedbackDisplay);
+
+  useEffect(() => {
+    localStorage.setItem('current-feedback', JSON.stringify(feedback));
+  }, [feedback]);
 
   const updateFeedback = feedbackType => {
     setFeedback({
@@ -42,18 +54,13 @@ function App() {
   return (
     <>
       <Description />
+      
       <Options onBtnClick={() => updateFeedback('good')}>Good</Options>
       <Options onBtnClick={() => updateFeedback('neutral')}>Neutral</Options>
       <Options onBtnClick={() => updateFeedback('bad')}>Bad</Options>
 
-      <>
-        {isNoFeedback ? (
-          <></>
-        ) : (
-          <Options onBtnClick={resetFeedback}>Reset</Options>
-        )}
-      </>
-      
+      {!isNoFeedback && <Options onBtnClick={resetFeedback}>Reset</Options>}
+
       <Feedback
         noFeedback={isNoFeedback}
         good={goodFeedback}
@@ -62,7 +69,6 @@ function App() {
         total={totalFeedback}
         positive={positiveFeedback}
       />
-  
     </>
   );
 }
