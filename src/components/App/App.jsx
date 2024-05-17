@@ -29,13 +29,16 @@ function App() {
     });
   };
 
-  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+  const goodFeedback = feedback.good;
+  const neutralFeedback = feedback.neutral;
+  const badFeedback = feedback.bad;
+  const totalFeedback = goodFeedback + neutralFeedback + badFeedback;
   const positiveFeedback = Math.round(
-    ((feedback.good + feedback.neutral) / totalFeedback) * 100
+    ((goodFeedback + neutralFeedback) / totalFeedback) * 100
   );
 
   const isNoFeedback = totalFeedback === 0;
-  
+
   return (
     <>
       <Description />
@@ -50,20 +53,16 @@ function App() {
           <Options onBtnClick={resetFeedback}>Reset</Options>
         )}
       </>
-
-      <div>
-        {isNoFeedback ? (
-          <Notification />
-        ) : (
-          <div>
-            <Feedback>Good: {feedback.good}</Feedback>
-            <Feedback>Neutral: {feedback.neutral}</Feedback>
-            <Feedback>Bad: {feedback.bad}</Feedback>
-            <Feedback>Total: {totalFeedback}</Feedback>
-            <Feedback>Positive: {positiveFeedback}%</Feedback>
-          </div>
-        )}
-      </div>
+      
+      <Feedback
+        noFeedback={isNoFeedback}
+        good={goodFeedback}
+        bad={badFeedback}
+        neutral={neutralFeedback}
+        total={totalFeedback}
+        positive={positiveFeedback}
+      />
+  
     </>
   );
 }
