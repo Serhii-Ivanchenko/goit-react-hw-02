@@ -1,5 +1,9 @@
+.options {
+    display: flex;
+    gap: 10px;
+}
+
 .btn {
-    margin-right: 10px;
     width: 100px;
     border-radius: 8px;
     border: 1px solid #3a3a3a;
@@ -8,6 +12,7 @@
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
+    text-transform: capitalize;
     background-color: #e8e8e8;
     cursor: pointer;
     transition: box-shadow 0.25s ease-in-out;

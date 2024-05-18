@@ -1,4 +1,3 @@
-import Notification from '../Notification/Notification';
 import clsx from 'clsx';
 import css from './Feedback.module.css';
 
@@ -8,11 +7,8 @@ export default function Feedback({
   neutral,
   total,
   positive,
-  noFeedback,
 }) {
-  return noFeedback ? (
-    <Notification />
-  ) : (
+  return (
     <div className={css.feedbackList}>
       <p className={css.feedbackItem}>Good: {good}</p>
       <p className={css.feedbackItem}>Neutral: {bad} </p>

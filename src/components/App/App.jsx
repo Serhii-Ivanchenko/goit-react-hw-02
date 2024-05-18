@@ -1,5 +1,6 @@
 import Description from '../Description/Description';
 import Feedback from '../Feedback/Feedback';
+import Notification from '../Notification/Notification';
 import Options from '../Options/Options';
 
 import './App.css';
@@ -7,15 +8,15 @@ import './App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
+const initialFeedback = {
+  good: 0,
+  neutral: 0,
+  bad: 0,
+};
+
 const initialFeedbackDisplay = () => {
   const savedFeedback = localStorage.getItem('current-feedback');
-  return savedFeedback !== null
-    ? JSON.parse(savedFeedback)
-    : {
-        good: 0,
-        neutral: 0,
-        bad: 0,
-      };
+  return savedFeedback !== null ? JSON.parse(savedFeedback) : initialFeedback;
 };
 
 function App() {
@@ -33,11 +34,7 @@ function App() {
   };
 
   const resetFeedback = () => {
-    setFeedback({
-      good: 0,
-      neutral: 0,
-      bad: 0,
-    });
+    setFeedback(initialFeedback);
   };
 
   const goodFeedback = feedback.good;
@@ -48,26 +45,28 @@ function App() {
     ((goodFeedback + neutralFeedback) / totalFeedback) * 100
   );
 
-  const isNoFeedback = totalFeedback === 0;
-
   return (
     <>
       <Description />
 
-      <Options onBtnClick={() => updateFeedback('good')}>Good</Options>
-      <Options onBtnClick={() => updateFeedback('neutral')}>Neutral</Options>
-      <Options onBtnClick={() => updateFeedback('bad')}>Bad</Options>
-
-      {!isNoFeedback && <Options onBtnClick={resetFeedback}>Reset</Options>}
-
-      <Feedback
-        noFeedback={isNoFeedback}
-        good={goodFeedback}
-        bad={badFeedback}
-        neutral={neutralFeedback}
-        total={totalFeedback}
-        positive={positiveFeedback}
+      <Options
+        options={['good', 'neutral', 'bad']}
+        onFeedbackBtnClick={updateFeedback}
+        onResetBtnClick={resetFeedback}
+        isResetBtnVisible={totalFeedback > 0}
       />
+
+      {totalFeedback ? (
+        <Feedback
+          good={goodFeedback}
+          bad={badFeedback}
+          neutral={neutralFeedback}
+          total={totalFeedback}
+          positive={positiveFeedback}
+        />
+      ) : (
+        <Notification />
+      )}
     </>
   );
 }
